@@ -1,7 +1,9 @@
 package com.example.calc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -38,5 +40,15 @@ class GalleryActivity : AppCompatActivity() {
             adapter = galleryAdapter
             layoutManager = myManager
         }
+
+        galleryAdapter.setListener(object : RecyclerViewListener {
+            override fun onitemClick(position: Int) {
+//                Toast.makeText(this@GalleryActivity, "$position Clicked", Toast.LENGTH_SHORT).show()
+                Intent(this@GalleryActivity, ImageViewActivity::class.java).apply {
+                    putExtra("image", list[position])
+                    startActivity(this)
+                }
+            }
+        })
     }
 }
